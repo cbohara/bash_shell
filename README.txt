@@ -1,7 +1,7 @@
 Notes from Learning the Bash Shell by Cameron Newham and Bill Rosenblatt
 
 #####
-Intro
+intro
 #####
 
 shell = user interface with the OS
@@ -144,7 +144,7 @@ control keys
 
 
 ####################
-Command line editing 
+command line editing 
 ####################
 
 “Why can’t I edit my UNIX command lines in the same way I can edit text with an editor?”
@@ -184,3 +184,52 @@ vi editing modes
 
     control to completion mode
         hit \
+
+##########################
+customize Unix environment
+##########################
+
+source executes the commands in specified file
+
+~/.bash_logout
+    read and executed every time a login shell exits
+    useful if you want to execute some command that removes temp files
+
+###############
+~/.bash_profile
+###############
+# should be simple and just load .profile and .bashrc (in that order)
+
+# get environment variables not specifically related to bash
+if [ -f ~/.profile ]; then
+    source ~/.profile
+fi
+
+# get aliases
+if [ -f ~/.bashrc ]; then
+	source ~/.bashrc
+fi
+
+##########
+~/.profile
+##########
+# for stuff not specifically related to bash
+
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home
+export PATH=$PATH:$JAVA_HOME/bin
+
+export HADOOP_HOME=/Users/hduser/tools/hadoop-2.7.3
+export PATH=$PATH:$HADOOP_HOME/bin
+
+export PIG_HOME=/Users/hduser/tools/pig-0.17.0
+export PATH=$PATH:$PIG_HOME/bin
+
+#########
+~/.bashrc
+#########
+# helpers for interactive command line work
+
+# used brew to install vim
+alias vim='/usr/local/bin/vim'
+
+
