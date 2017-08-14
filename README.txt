@@ -7,6 +7,14 @@ intro
 shell = user interface with the OS
 any program that takes input from the user > translates instructions to OS > convey OS output back to user
 
+before personal computers each user would connect with the larger the computer via a terminal device
+the terminal device would be connected to the main computer via a cable
+it was not a computer - it was only a keyboard and a display
+
+terminal emulator allows us to access the Unix command line on our personal computers 
+the shell is the program running in the terminal emulator and communicates directly with the OS
+terminal window contains shell prompt
+
 command [-option] argument
 
 command = action
@@ -111,6 +119,8 @@ standard I/O
     pipelines redirect the stdout of 1 command to stdin of another command
 
 background jobs
+    whenever you enter a command you are telling the shell to run that command in a subprocess
+
     foreground job
         when you enter a command into the terminal
         the shell will let the command have control of the terminal until its done
@@ -150,6 +160,8 @@ command line editing
 “Why can’t I edit my UNIX command lines in the same way I can edit text with an editor?”
 you can with bash!
 
+set -o turns on the option
+set +o turns off the option
 $ set -o vi
 
 history list
@@ -228,8 +240,82 @@ export PATH=$PATH:$PIG_HOME/bin
 ~/.bashrc
 #########
 # helpers for interactive command line work
+# bash expands alias to actual text of the command before execution
 
 # used brew to install vim
 alias vim='/usr/local/bin/vim'
 
+# avoid misspelling python all the time
+alias p2='python'
+alias p3='python3'
 
+
+shell variables 
+    variable=value
+        no space on either side of the =
+        if the value is more than 1 word then surround by quotes 
+
+    to use the value of the variable use $variable
+
+    $variable "survives" the double quotes when using echo
+    
+    $ $wonderland=alice
+    $ echo $wonderland
+    > alice
+    $ echo "$wonderland"
+    > alice
+
+    need to use \$ if you want to echo the actual $ char
+    also need to use \" to print quote char
+    $ echo "The value of \$wonderland is \"$wonderland\"."
+    > The value of $wonderland is "alice".
+    
+    when in doubt use single quotes
+    unless a string contains a variable then use double quotes
+
+PATH variable
+    every command used is actually a file that contains code for your machine to run
+    for builtin commands the code is part of the executable file for the shell itself
+    these files are executable files
+    often stored in a bin/ directory
+
+    PATH helps the shell find the command you entered
+    its value is a list of directories that the shell searches every time you enter a command
+    dir names are separated by colons
+
+    ############
+    cat .profile
+    ############
+    export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home
+    # places the $JAVA_HOME/bin as the next place to look for executable commands after default commands
+    export PATH=$PATH:$JAVA_HOME/bin
+
+    export HADOOP_HOME=/Users/hduser/tools/hadoop-2.7.3
+    # places the $HADOOP_HOME/bin as the next place to look for executable commands after $JAVA_HOME/bin
+    export PATH=$PATH:$HADOOP_HOME/bin
+
+    export PIG_HOME=/Users/hduser/tools/pig-0.17.0
+    # places the $PIG_HOME/bin as the next place to look for executable commands after $PIG_HOME/bin
+    export PATH=$PATH:$PIG_HOME/bin
+    ############
+
+    when you enter a command the shell searches directories in the order they appear in PATH
+    until executable file is found
+    $ echo $PATH
+    > /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/
+    > Contents/Home/bin:/Users/hduser/tools/hadoop-2.7.3/bin:/Users/hduser/tools/pig-0.17.0/bin
+
+    use type to find out where the executable is located
+    $ echo hdfs
+    > hdfs is /Users/hduser/tools/hadoop-2.7.3/bin/hdfs
+
+environment variables
+    whenever you enter a command you are telling the shell to run that command in a subprocess
+    
+    environment variables = special class of shell variables that can be accessed by all subprocesses
+
+    any variable can become an environment variable
+    by using the export command
+
+    by adding this to my ~/.profile I can always refer to PIG_HOME
+    $ export PIG_HOME=/Users/hduser/tools/pig-0.17.0
