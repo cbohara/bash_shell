@@ -153,6 +153,7 @@ control keys
     $ stty -a
 
 
+
 ####################
 command line editing 
 ####################
@@ -196,6 +197,8 @@ vi editing modes
 
     control to completion mode
         hit \
+
+
 
 ##########################
 customize Unix environment
@@ -319,3 +322,64 @@ environment variables
 
     by adding this to my ~/.profile I can always refer to PIG_HOME
     $ export PIG_HOME=/Users/hduser/tools/pig-0.17.0
+
+
+
+#######################
+basic shell programming
+#######################
+
+$ chmod +x scriptname
+
+ex: scriptname contains 2 commands: hatter and gryphon
+$ source scriptname
+    commands hatter and gryphon run in the same shell
+    just as if you entered them directly into the command line
+
+$ ./scriptname
+    commands run in a subshell while the parent waits for the subshell to finish
+
+$ ./scriptname &
+    commands run in the background which really is another term for subprocess
+    the only difference is you have control of your terminal while the commands run
+
+if you did not export environment variables in the parent shell > they will not be accessible in the subshell
+
+order of precedence for shared names
+    alias
+    keywords
+    functions
+    builtin functions
+    scripts
+
+    show everything associated with a word in its order of precedence
+    $ type -all [word]
+
+    $ type -t bash
+    > file
+
+    $ type -t if
+    > keyword
+
+functions
+    when you define a function you tell the shell to store its name and definition in memory
+    if you want to run a function later just type in its name followed by arguments as if it were a shell script
+
+    $ declare -f 
+        shows all functions and their definitions
+
+    $ declare -F
+        just shows function names
+
+    functions do not run in separate processes 
+
+shell variables
+    value obtained by precending their number with a $
+    environment variables are usually all caps (like I have it in .profile)
+    bash places heavy emphasis on character strings
+
+positional parameters
+    $0 is the name of the script
+    1 - 9 are the arguments passed to the script on the command line
+    access in script via $1 - $9
+    
