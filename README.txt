@@ -378,8 +378,36 @@ shell variables
     environment variables are usually all caps (like I have it in .profile)
     bash places heavy emphasis on character strings
 
+    local variables in functions
+        define variables local to functions in order to keep subprograms independent of main program
+
+    variable syntax
+        $varname is a simple form for more general ${varname} syntax
+
+        ex: if you want to put an underscore after your user ID
+        the shell will try to use UID_ as the name of the variable which does not exist
+        $ echo $UID_
+        need to expand UID
+        $ echo ${UID}_
+
+
 positional parameters
     $0 is the name of the script
     1 - 9 are the arguments passed to the script on the command line
     access in script via $1 - $9
     
+    * and @ contain all positional parameters
+        read only variables = can't assign new values to them within scripts
+
+        $ "$*"
+            "$1 $2 $3..."
+            single string
+            separated based on environment variable IFS (internal field separator)
+
+        $ "$@"
+            "$1" "$2" "$3"
+
+        $ "$# arguments"
+            holds # of positional positional parameters as char string
+
+
