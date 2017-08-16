@@ -429,3 +429,9 @@ command substitution
     grep -l = only the names of the files containing selected lines are written to stdout
     $ shell_scripts=$(grep -l '#!/bin/bash' *.sh)
     $ echo $shell_scripts
+
+    cut is a data filter
+    it extracts columns from tabular data (either separated by tabs or other delimiters)
+    -f specifies field number
+    -d specifies delimiter so need to use \| to avoid bash reading as pipe |
+    $ cut -f2 -d\| data/artists.txt
