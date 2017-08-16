@@ -410,4 +410,22 @@ positional parameters
         $ "$# arguments"
             holds # of positional positional parameters as char string
 
+command substitution
+    $(UNIX command)
+    the command will run
+    anything the command writes to stdout is returned as the value of the expression
 
+    $ magic=$(pwd)
+    $ echo $magic
+    > /Users/charlieohara
+
+    can also pass in a file
+    the content will be printed to stdout without trailing \n
+    $ content=$(<artists.tsv)
+    $ echo $content
+    > 5 Depeche Mode 2 Split Enz 3 Simple Minds 1 Vivaldi, Antonio 7 Bon Iver 2 Beyonce 10 Spice Girls 2 Coldplay 4 Radiohead
+
+    list all shell scripts that contain #!/bin/bash
+    grep -l = only the names of the files containing selected lines are written to stdout
+    $ shell_scripts=$(grep -l '#!/bin/bash' *.sh)
+    $ echo $shell_scripts
