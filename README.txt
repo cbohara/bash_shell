@@ -435,3 +435,19 @@ command substitution
     -f specifies field number
     -d specifies delimiter so need to use \| to avoid bash reading as pipe |
     $ cut -f2 -d\| data/artists.txt
+
+######################
+flow control
+######################
+
+exit status
+    every Unix command returns an integer code to its calling process when its finished
+    0 = success 
+    1-255 = error
+
+    if command ran successfully
+    then
+        normal process
+    else
+        error process
+    fi

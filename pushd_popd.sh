@@ -9,18 +9,21 @@ pushd ()
     # first positional parameter provided to script
     dirname=$1
 
-    # DIR_STACK is initalized as an empty string in .bash_profile
-    # expression within double quotes will be dirname followed by a space followed by PWD followed by a space
-    # putting variable in double quotes ensures that the entire expression is stored as one string
-    DIR_STACK="$dirname ${DIR_STACK:-$PWD' '}"
+    # if cd into specified directory was successful
+    if cd ${dirname:?"missing directory name"}
+    then
+        # DIR_STACK is initalized as an empty string in .bash_profile
+        # expression within double quotes will be dirname followed by a space followed by PWD followed by a space
+        # putting variable in double quotes ensures that the entire expression is stored as one string
 
-    # cd into the specified directory if provided
-    # otherwise print dirname followed by error message
-    cd ${dirname:?"missing directory name"}
+        # if DIR_STACK has been set in previous iterations use that otherwise use PWD
+        DIR_STACK="$dirname ${DIR_STACK:-$PWD' '}"
+        echo $DIR_STACK
 
-    # print the contents of the stack
-    # leftmost directory is both the current directory and the top of the stack
-    echo "$DIR_STACK"
+    # otherwise do nothing
+    else
+        echo "still in $PWD"
+    fi
 }
 
 popd ()
