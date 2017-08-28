@@ -451,3 +451,27 @@ exit status
     else
         error process
     fi
+
+$?
+    the exit status is reset by every command so it "disappears" if you don't save it immediately
+    special shell variable ? holds the exit status of the last command ran
+    assign value of ? to variable exit_status=$?
+
+return [exit status]
+    return [exit status] causes the surrounding function to exit with the specified exit status
+    specifying exit status is optional
+    defaults to exit status of last command
+    functions without return statement return whatever the last statement returns
+
+exit [exit status]
+    exits the entire script
+    no matter how deepl you are nested in functions
+
+combine exit status conditions for if 
+    if statement1 && statement2
+        execute statement1 and if its exit status is 0 then execute statement2
+        if both statements give exit status 0 then proceed
+
+    statement1 || statement2
+        execute statement1 and if its exit status is not 0 (if statement1 failed) then run statement2
+        if either statement gives exit status 0 then proceed
