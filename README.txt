@@ -475,3 +475,11 @@ combine exit status conditions for if
     statement1 || statement2
         execute statement1 and if its exit status is not 0 (if statement1 failed) then run statement2
         if either statement gives exit status 0 then proceed
+
+condition tests
+    spaces after the [ and before the ] are required
+
+    sometimes a variable being tested will expand into nothing so [ -n ] will return true
+    surrounding the variable in "$var_name" ensures that even if it expands into nothing
+    there will be an empty string as an argument 
+    [ -n "" ] checks if the string is not null and because an empty zero-length string is null this will return false

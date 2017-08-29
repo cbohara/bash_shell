@@ -28,16 +28,23 @@ pushd ()
 
 popd ()
 {
-    # #* will delete everything before the first space in the DIR_STACK string
-    # this will delete the top directory from the stack
-    # "/etc /home/you/lizard /home/you" will become "/home/you/lizard /home/you"
-    DIR_STACK=${DIR_STACK#* }
+    # if string is not null (has a length greater than 0)
+    # put "$DIR_STACK" in double quotes so that when it is expanded it is treated as a single word
+    # otherwise shell will expand it into multiple words and will complain too many args
+    if [ -n "$DIR_STACK"]; then
+        # #* will delete everything before the first space in the DIR_STACK string
+        # this will delete the top directory from the stack
+        # "/etc /home/you/lizard /home/you" will become "/home/you/lizard /home/you"
+        DIR_STACK=${DIR_STACK#* }
 
-    # %% * will delete everything after the first space 
-    # "/home/you/lizard /home/you" will become "/home/you/lizard"
-    # this is the directory we want to pass into the cd command
-    cd ${DIR_STACK%% *}
+        # %% * will delete everything after the first space 
+        # "/home/you/lizard /home/you" will become "/home/you/lizard"
+        # this is the directory we want to pass into the cd command because it is the most recent dir
+        cd ${DIR_STACK%% *}
 
-    # simply echo where you are in the file system
-    echo "$PWD"
+        # simply echo where you are in the file system
+        echo "$PWD"
+    else
+        echo "stack empty, still in $PWD"
+    fi
 }
