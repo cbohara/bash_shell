@@ -483,3 +483,6 @@ condition tests
     surrounding the variable in "$var_name" ensures that even if it expands into nothing
     there will be an empty string as an argument 
     [ -n "" ] checks if the string is not null and because an empty zero-length string is null this will return false
+
+    -a and -o are only available inside [ ]
+    && and || can be used inside [[ ]]
